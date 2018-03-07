@@ -1,3 +1,22 @@
+SSH Keys
+
+ssh-keygen -t rsa
+Answer Q's 
+(enter passphrase)
+ssh-copy-id user@123.45.56.78
+or
+ssh user@remote "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1" < "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys  || exit 1" < C:\Users\user\.ssh\id_rsa.pub
+
+#####
+ON SERVER
+#####
+
+sudo nano /etc/ssh/sshd_config
+PermitRootLogin without-password
+PasswordAuthentication no
+reload ssh
+####################
+
 Fail2ban
 
 Jails
