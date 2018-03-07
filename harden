@@ -5,7 +5,7 @@ Answer Q's
 (enter passphrase)
 ssh-copy-id user@123.45.56.78
 or
-ssh user@remote "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1" < "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys  || exit 1" < C:\Users\user\.ssh\id_rsa.pub
+https://devops.profitbricks.com/tutorials/use-ssh-keys-with-putty-on-windows/
 
 #####
 ON SERVER
@@ -17,8 +17,42 @@ PasswordAuthentication no
 reload ssh
 ####################
 
+nano /etc/ssh/sshd_config
+port xxxx
+service sshd restart
+
+####################
+
 Fail2ban
+apt-get install fail2ban
+ufw allow ssh
+ufw enable
 
 Jails
+cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+###
+[sshd]
+enabled = true
+###
+[ssh]
+
+enabled  = true
+port     = xxxx
+filter   = sshd
+logpath  = /var/log/auth.log
+maxretry = 6
+###
+[apache] 
+ enabled = true 
+ port = http,https 
+ filter = apache-auth 
+ logpath = /var/log/apache2/*error.log 
+ maxretry = 3 
+ bantime = 600 
+ 
+ ###
+
+
 
 Log Locations
